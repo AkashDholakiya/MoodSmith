@@ -55,5 +55,3 @@ export async function POST(req) {
   }
 }
 
-// Export the groq instance for use in other parts of the application if needed
-export { groq };

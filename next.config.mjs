@@ -1,11 +1,23 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     eslint: {
-        ignoreDuringBuilds: true, // Ignore ESLint errors during the build
+      ignoreDuringBuilds: true, // Ignore ESLint errors during the build
     },
     typescript: {
-        ignoreBuildErrors: true, // Ignore TypeScript errors during the build
+      ignoreBuildErrors: true, // Ignore TypeScript errors during the build
     },
-};
-
-export default nextConfig;
+    webpack: (config, { isServer }) => {
+      // Fix issues with missing modules
+      if (!isServer) {
+        config.resolve.fallback = {
+          fs: false,
+          encoding: false,
+        };
+      }
+  
+      return config;
+    },
+  };
+  
+  module.exports = nextConfig;
+  
