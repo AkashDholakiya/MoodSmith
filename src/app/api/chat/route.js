@@ -16,17 +16,14 @@ export async function POST(req) {
     // Parse the request body
     const { messages, customVariable } = await req.json();
 
-    console.log('Custom Variable:', customVariable);
-
     // Create custom instructions based on customVariable or other logic
-    // const customInstructions = {
-    //   role: 'system',
-    //   content: "asidjasoids"
-    // };
+    const customInstructions = {
+      role: 'system',
+      content: customVariable
+    };
 
     // Combine custom instructions with incoming messages
-    // const customMessages = [customInstructions, ...messages];
-    const customMessages = messages;
+    const customMessages = [customInstructions, ...messages];
 
     // Fetch the result from the AI service
     const result = await streamText({

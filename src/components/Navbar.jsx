@@ -16,6 +16,8 @@ import { db } from '../app/firebase';
 import { setDoc, doc } from 'firebase/firestore';
 import Link from 'next/link';
 import { auth } from '../app/firebase';
+import { rdb } from '../app/firebase';
+import { remove, ref } from 'firebase/database';
 
 export const Navbar = () => {
     const { setTheme, resolvedTheme } = useTheme();
@@ -73,6 +75,26 @@ export const Navbar = () => {
         }
     };
 
+    const handleClearHistory = () => {
+        if (loggedInUser) {
+            const dbRef = ref(rdb, `messages/${loggedInUser.uid}`);
+            remove(dbRef)
+                .then(() => {
+                    console.log('Chat history cleared successfully!');
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    console.error('Error clearing chat history:', error);
+                }
+            );
+        }
+        else{
+            window.location.reload();
+        }
+
+    };
+
+
     // Ensure the theme is resolved before rendering theme-dependent components
     if (!mounted) return null;
 
@@ -85,6 +107,7 @@ export const Navbar = () => {
                 <div className="hidden md:flex md:justify-center md:items-center space-x-6">
                     <a href="/" className="hover:text-muted-foreground">Home</a>
                     <Link href="/letmepredict" className="hover:text-muted-foreground">Game</Link>
+                    <p className="cursor-pointer hover:underline text-red-500" onClick={handleClearHistory}>Clear History</p>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="ghost" size="icon">
