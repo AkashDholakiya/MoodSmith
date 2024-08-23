@@ -16,10 +16,12 @@ export async function POST(req) {
     // Parse the request body
     const { messages, customVariable } = await req.json();
 
+    const ModiFiedCustom = "Provide the response in html tags based on the questions. Avoid adding any additional styles or colors." + customVariable;
+
     // Create custom instructions based on customVariable or other logic
     const customInstructions = {
       role: 'system',
-      content: customVariable
+      content: ModiFiedCustom
     };
 
     // Combine custom instructions with incoming messages

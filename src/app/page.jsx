@@ -8,6 +8,8 @@ import { getDoc, doc } from "firebase/firestore";
 import { rdb } from './firebase'
 import { ref, get, push } from "firebase/database";
 import { db, auth } from "./firebase";
+import parse from 'html-react-parser';
+
 
 export default function ChatContainer() {
   const [userdata, setUserData] = useState(null);
@@ -123,10 +125,10 @@ export default function ChatContainer() {
         <div className="flex-1 p-4 space-y-4">
           {messages && messages.length > 0 && messages.map((message, index) => {
             return (
-              <div className={`flex w-full`} key={message.id}>
-                <div className={`${message.role === "assistant" ? "flex justify-start w-full" : "flex justify-end w-full"} py-1.5 rounded-md`}>
-                  <div className={`w-3/4 flex ${message.role === "assistant" ? "justify-start" : "justify-end"}`}>
-                    <p className="bg-secondary p-2.5 text-justify rounded-xl">{message.content}</p>
+              <div className={`flex max-w-full`} key={message.id}>
+                <div className={`${message.role === "assistant" ? "flex justify-start w-full" : "flex justify-end w-full"} py-1.5 max-w-full rounded-md`}>
+                  <div className={`w-3/4 flex max-w-full ${message.role === "assistant" ? "justify-start" : "justify-end"}`}>
+                    <div className="bg-secondary p-2.5 max-w-full break-words text-justify rounded-xl">{parse(message.content)}</div>
                   </div>
                 </div>
               </div>

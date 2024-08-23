@@ -163,6 +163,7 @@ export const Navbar = () => {
                                         <Button onClick={() => setTheme("dark")} className="text-sm border-x border-primary w-full" variant="ghost">Dark</Button>
                                         <Button onClick={() => setTheme("system")} className="text-sm w-full border-l border-primary" variant="ghost">System</Button>
                                     </div>
+                                    <p className="cursor-pointer hover:underline text-red-500 border-b border-primary pb-2 w-full" onClick={handleClearHistory}>Clear History</p>
                                     {/* Login Button */}
                                     <div
                                         className="flex cursor-pointer hover:underline"
